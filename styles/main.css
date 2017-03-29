@@ -8,6 +8,10 @@ a:hover {
   color: #fff;
 }
 
+.link {
+  text-decoration: underline;
+}
+
 /* Custom default button */
 .btn-default {
   color: #fff;
@@ -83,6 +87,10 @@ body {
   display: inline-block;
 }
 
+.active {
+  font-weight: bold;
+}
+
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
@@ -141,7 +149,7 @@ body {
 #subscribeModal .modal-content {
   background-color: #303546;
   color: #fff;
-  text-align: left;
+  text-align: center;
 }
 
 #subscribeModal .modal-header, #subscribeModal .modal-footer {

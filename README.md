@@ -1,2 +1,2 @@
 # PieDrive
-A modern data hub for all your data concernes.
+A modern data hub for all your data concerns.

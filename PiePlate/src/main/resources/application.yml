@@ -1,0 +1,9 @@
+zuul:
+    routes:
+        api:
+            path: /api/**
+            url: http://localhost:8081/
+        # UI has to be the last path since otherwise it will mask the other paths
+        webservice:
+            path: /**
+            url: http://localhost:3000/

@@ -4,18 +4,24 @@ import { Provider } from 'react-redux';
 import { Route } from 'react-router'
 import createBrowserHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import { createEpicMiddleware } from 'redux-observable';
+import { combineEpics } from 'redux-observable';
 
 import {Framework7App, View, Views, Pages } from 'framework7-react';
 
 import Explorer from './pages/Explorer';
+import Home from './pages/Home';
 import LeftPanel from './components/LeftPanel';
 import ProvidersPage from './pages/ProvidersPage';
+
+import loginModule from './pages/Login';
 
 import PieFile from './model/PieFile';
 
 const history = createBrowserHistory();
 //const history = createHashHistory();
 const middleware = routerMiddleware(history);
+const epicMiddleware = createEpicMiddleware(combineEpics(...loginModule.epics));
 
 const initialState = {
   files: {
@@ -34,10 +40,11 @@ function initApp(state = initialState, action) {
 
 export const store = createStore(
     combineReducers({
-      initApp,
+      initApp: initApp,
+      login: loginModule.reducer,
       router: routerReducer
 	}),
-  applyMiddleware(middleware)
+  applyMiddleware(middleware, epicMiddleware)
 );
 
 class App extends Component {
@@ -48,9 +55,10 @@ class App extends Component {
       <Framework7App themeType="material">
         <LeftPanel />
         <Views>
-          <View id="main-view" navbarThrough dynamicNavbar={true} main url="/">
+          <View id="main-view" navbarThrough dynamicNavbar={true} main url="/home">
             <Pages>
-            <Route exact path="/" component={Explorer}/>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/folders" component={Explorer}/>
             <Route path="/folders/:folderId" component={Explorer}/>
             <Route path="/providers" component={ProvidersPage}/>
             </Pages>

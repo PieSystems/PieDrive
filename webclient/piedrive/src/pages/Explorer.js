@@ -69,8 +69,6 @@ class explorer extends Component {
         		</View>
         </Popup>
 
-        <ContentBlockTitle> Welcome to my App</ContentBlockTitle>
-
         <PieTable files={fs}/>
 
 

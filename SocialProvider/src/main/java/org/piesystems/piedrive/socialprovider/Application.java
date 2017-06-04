@@ -7,12 +7,14 @@ package org.piesystems.piedrive.socialprovider;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  *
  * @author Svetoslav Videnov <s.videnov@dsg.tuwien.ac.at>
  */
 @SpringBootApplication
+@EnableResourceServer
 public class Application {
 
 	/**

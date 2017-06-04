@@ -6,8 +6,8 @@
 		<artifactId>PieDrive</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>SocialProvider</artifactId>
-	<name>PieDrive Social Provider</name>
+	<artifactId>UUA</artifactId>
+	<name>PieDrive UUA</name>
 	<packaging>jar</packaging>
 	
 	<dependencies>

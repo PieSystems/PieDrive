@@ -1,9 +1,24 @@
+debug: true
+
 zuul:
     routes:
         api:
             path: /api/**
             url: http://localhost:8081/
+        uua:
+            path: /uaa/**
+            url: http://localhost:9999/
         # UI has to be the last path since otherwise it will mask the other paths
         webservice:
             path: /**
             url: http://localhost:3000/
+
+security:
+    oauth2:
+        resource:
+            jwt:
+                key-uri: http://localhost:9999/oauth/token_key
+
+logging:
+  level:
+    org.springframework.security: DEBUG

@@ -7,13 +7,22 @@ import {push} from 'react-router-redux';
 import * as loginSelectors from '../../pages/Login/selectors';
 
 const addProviderEpic = (action$, store) => action$.ofType(actionTypes.ADD_PROVIDER)
-    .mergeMap(action => ajax
-        .post("http://localhost:8080/api/connect/" + action.provider, {}, {
-            authorization: loginSelectors.getTokenType(store.getState()) + " " + loginSelectors.getAccessToken(store.getState())
-        })
-        .map(response => {console.log(response); return response;})
-        .catch(error => {console.log(error); return Observable.of(actions.addProviderFailed(error));})
-    );
+  // Could be done better using the *FormData API*
+  // @see https://developer.mozilla.org/de/docs/Web/API/FormData
+  .mergeMap(action => {
+    const form = document.createElement('form');
+    document.body.appendChild(form);
+
+    const auth = document.createElement('input');
+    auth.name = 'authorization';
+    auth.value = `${loginSelectors.getTokenType(store.getState())} ${loginSelectors.getAccessToken(store.getState())}`;
+
+    form.appendChild(auth);
+
+    form.action = `http://localhost:8080/api/connect/${action.provider}`;
+    form.target = '_self';
+    form.submit();
+  });
 
 // const signInUserEpic = action$ => action$.ofType(actionTypes.SIGN_IN)
 //     .mergeMap(action => ajax

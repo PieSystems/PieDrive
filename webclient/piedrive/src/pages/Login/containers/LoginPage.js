@@ -6,7 +6,7 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 
 const mapStateToProps = (state) => ({
-        email: selectors.getEmail(state),
+        email: selectors.getUser(state).getEmail(),
         password: selectors.getPassword(state),
         type: selectors.getType(state)
     });

@@ -1,6 +1,7 @@
 debug: true
 
 zuul:
+    sensitiveHeaders: Cookie,Set-Cookie
     routes:
         api:
             path: /api/**

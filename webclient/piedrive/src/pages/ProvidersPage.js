@@ -20,7 +20,8 @@ import {
 } from 'framework7-react';
 
 import PieTable from '../components/PieTable';
-import ProviderList from '../components/ProviderList';
+import ProviderList from '../components/providerList/components/ProviderList';
+import {ProviderListContainer} from '../components/providerList';
 
 import PieFile from './../model/PieFile';
 
@@ -54,7 +55,7 @@ class providersPage extends Component {
                                         <Link closePopup>Close</Link>
                                     </NavRight>
                                 </Navbar>
-                                <ProviderList/>
+                                <ProviderListContainer/>
                             </Page>
                         </Pages>
                     </View>

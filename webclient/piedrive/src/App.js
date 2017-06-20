@@ -15,13 +15,14 @@ import LeftPanel from './components/LeftPanel';
 import ProvidersPage from './pages/ProvidersPage';
 
 import loginModule from './pages/Login';
+import providerListModule from './components/providerList';
 
 import PieFile from './model/PieFile';
 
 const history = createBrowserHistory();
 //const history = createHashHistory();
 const middleware = routerMiddleware(history);
-const epicMiddleware = createEpicMiddleware(combineEpics(...loginModule.epics));
+const epicMiddleware = createEpicMiddleware(combineEpics(...loginModule.epics,...providerListModule.epics));
 
 const initialState = {
   files: {
@@ -42,6 +43,7 @@ export const store = createStore(
     combineReducers({
       initApp: initApp,
       login: loginModule.reducer,
+      providerList: providerListModule.reducer,
       router: routerReducer
 	}),
   applyMiddleware(middleware, epicMiddleware)

@@ -1,0 +1,2 @@
+export const ADD_PROVIDER = "ADD_PROVIDER";
+export const ADD_PROVIDER_FAILED = "ADD_PROVIDER_FAILED";

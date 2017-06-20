@@ -7,6 +7,14 @@ security:
             jwt:
                 key-uri: http://localhost:9999/oauth/token_key
 
+spring:
+    social:
+        app:
+            url: http://localhost:8080/api
+        dropbox:
+            appId: 
+            appSecret: 
+
 logging:
   level:
     org.springframework.security: DEBUG

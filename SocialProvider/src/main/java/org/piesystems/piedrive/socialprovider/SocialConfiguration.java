@@ -43,10 +43,15 @@ public class SocialConfiguration implements SocialConfigurer {
 				e.getProperty("spring.social.dropbox.appSecret"),
 				"pieDrive/0.1"));
 	}
+	
+	@Bean
+	public SecurityUserIdSource securityUserIdSource() {
+		return new SecurityUserIdSource();
+	}
 
 	@Override
 	public UserIdSource getUserIdSource() {
-		return new SecurityUserIdSource();
+		return securityUserIdSource();
 	}
 
 	@Override
@@ -59,7 +64,8 @@ public class SocialConfiguration implements SocialConfigurer {
 			ConnectionFactoryLocator connectionFactoryLocator,
 			ConnectionRepository connectionRepository,
 			Environment env) {
-		SocialController cc = new SocialController(connectionFactoryLocator, connectionRepository);
+		SocialController cc = new SocialController(connectionFactoryLocator, 
+				connectionRepository, securityUserIdSource());
 		cc.setApplicationUrl(env.getProperty("spring.social.app.url"));
 		//cc.addInterceptor(new GoogleScopeInterceptor());
 		return cc;

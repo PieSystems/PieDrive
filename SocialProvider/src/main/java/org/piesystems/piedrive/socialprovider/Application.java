@@ -7,6 +7,7 @@ package org.piesystems.piedrive.socialprovider;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,9 +31,15 @@ public class Application extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
+		//todo-sv: recheck this security config
 		http
 			.requestMatchers()
-				.antMatchers("/connect/**")
+				//GET on /connect is needed to receive the redirect from the 
+				//providers as long as there is no solution for incorporating 
+				//JWT token
+				//todo-sv: find a way to incorporate the JWT token into the 
+				//oauth2 flow
+				.antMatchers(HttpMethod.GET, "/connect/**")
 				.and()
 			//.logout().and()
 			.authorizeRequests()

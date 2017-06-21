@@ -1,7 +1,9 @@
 debug: true
 
 zuul:
-    sensitiveHeaders: Cookie,Set-Cookie
+    # todo-sv: for now we do not filter anything because spring social 
+    # requires sessions to match state to user
+    sensitiveHeaders: 
     routes:
         api:
             path: /api/**

@@ -11,7 +11,7 @@ const addProviderEpic = (action$, store) => action$.ofType(actionTypes.ADD_PROVI
         .post("http://localhost:8080/api/connect/" + action.provider, {}, {
             authorization: loginSelectors.getTokenType(store.getState()) + " " + loginSelectors.getAccessToken(store.getState())
         })
-        .map(response => {console.log(response); return response;})
+        .map(response => {console.log(response.xhr.responseURL); window.open(response.xhr.responseURL, "_self");})
         .catch(error => {console.log(error); return Observable.of(actions.addProviderFailed(error));})
     );
 

@@ -62,6 +62,8 @@ public class Application extends WebSecurityConfigurerAdapter {
 			// @formatter:on
 	}
 	
+	//todo-sv: fix cors problem: check why when talking directly to the ServiceProvider it is not a problem
+	
 //	@Bean
 //    public WebMvcConfigurer corsConfigurer() {
 //        return new WebMvcConfigurerAdapter() {
@@ -72,16 +74,16 @@ public class Application extends WebSecurityConfigurerAdapter {
 //        };
 //    }
 	
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod(HttpMethod.GET);
-		config.addAllowedMethod(HttpMethod.OPTIONS);
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
-	}
+//	@Bean
+//	public CorsFilter corsFilter() {
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.addAllowedOrigin("*");
+//		config.addAllowedHeader("*");
+//		config.addAllowedMethod(HttpMethod.GET);
+//		config.addAllowedMethod(HttpMethod.OPTIONS);
+//		source.registerCorsConfiguration("/**", config);
+//		return new CorsFilter(source);
+//	}
 }

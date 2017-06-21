@@ -5,7 +5,12 @@
  */
 package org.piesystems.piedrive.socialprovider;
 
+import com.dropbox.core.DbxException;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.ListFolderResult;
 import java.security.Principal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +25,15 @@ public class HelloWorldController {
 	public String helloWorld(Principal user) {
 		System.out.println(user.getName());
 		return "Hello Resources!";
+	}
+	
+	@Autowired
+	private ConnectionRepository connectionRepository;
+	
+	@RequestMapping("/list")
+	public ListFolderResult listDropBoxFiles() throws DbxException {
+		DbxClientV2 client = connectionRepository.getPrimaryConnection(DbxClientV2.class).getApi();
+		ListFolderResult res = client.files().listFolder("");
+		return res;
 	}
 }

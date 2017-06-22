@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Navbar, View, Pages, Page, List, Link, ListItem, Panel} from 'framework7-react';
 
 import {push} from 'react-router-redux';
-import {store} from '../App';
+import {store} from '../../../App';
 
 export default class LeftPanel extends Component {
     //onClick(event) {
@@ -17,10 +17,11 @@ export default class LeftPanel extends Component {
     //store.dispatch(navigateTo('/#/folders/uni'));
     //}
 
-    onFiles(event) {
-        console.log("files");
-        store.dispatch(push("/folders"));
-    }
+    onFiles = (event) => {
+        //console.log("files");
+        //store.dispatch(push("/folders"));
+        this.props.onNavFolders();
+    };
 
     onProviders(event) {
         console.log("providers");

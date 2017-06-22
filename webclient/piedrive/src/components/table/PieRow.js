@@ -16,12 +16,12 @@ export default class PieRow extends Component {
   }
 
   render() {
-    var locations = this.props.file.locations.map(function(location){
+    var locations = this.props.file.providers.map(function(location){
       return <Icon fa={location} className="fa-lg">&nbsp;</Icon>;
     });
 
     var mainIcon = <Icon fa="file" className="fa-2x"></Icon>;
-    if(this.props.file.isFolder) {
+    if(this.props.file.folder) {
       mainIcon = <Icon fa="folder" className="fa-2x"></Icon>;
     }
 

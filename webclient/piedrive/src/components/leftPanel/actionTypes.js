@@ -1,0 +1,2 @@
+export const NAV_FOLDERS = "NAV_FOLDERS";
+export const LOAD_ROOT_SUCCESS = "LOAD_ROOT_SUCCESS";

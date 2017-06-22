@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router'
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -7,22 +7,32 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import { createEpicMiddleware } from 'redux-observable';
 import { combineEpics } from 'redux-observable';
 
+import {persistStore, autoRehydrate} from 'redux-persist'
+
 import {Framework7App, View, Views, Pages } from 'framework7-react';
 
 import Explorer from './pages/Explorer';
 import Home from './pages/Home';
-import LeftPanel from './components/LeftPanel';
-import ProvidersPage from './pages/ProvidersPage';
+import LeftPanel from './components/leftPanel/components/LeftPanel';
+import LeftPanelContainer from './components/leftPanel/containers/LeftPanelContainer';
+import ProvidersPage from './pages/Providers/components/ProvidersPage';
 
 import loginModule from './pages/Login';
 import providerListModule from './components/providerList';
+import leftPanelModule from './components/leftPanel';
 
 import PieFile from './model/PieFile';
 
 const history = createBrowserHistory();
 //const history = createHashHistory();
 const middleware = routerMiddleware(history);
-const epicMiddleware = createEpicMiddleware(combineEpics(...loginModule.epics,...providerListModule.epics));
+const epicMiddleware = createEpicMiddleware(
+    combineEpics(
+        ...loginModule.epics,
+        ...providerListModule.epics,
+        ...leftPanelModule.epics
+    )
+);
 
 const initialState = {
   files: {
@@ -41,13 +51,18 @@ function initApp(state = initialState, action) {
 
 export const store = createStore(
     combineReducers({
-      initApp: initApp,
+      initApp: leftPanelModule.reducer,
       login: loginModule.reducer,
       providerList: providerListModule.reducer,
       router: routerReducer
 	}),
-  applyMiddleware(middleware, epicMiddleware)
+    compose(
+        applyMiddleware(middleware, epicMiddleware),
+        autoRehydrate()
+    )
 );
+
+persistStore(store);
 
 class App extends Component {
   render() {
@@ -55,7 +70,7 @@ class App extends Component {
       <Provider store={store}>
       <ConnectedRouter history={history}>
       <Framework7App themeType="material">
-        <LeftPanel />
+        <LeftPanelContainer />
         <Views>
           <View id="main-view" navbarThrough dynamicNavbar={true} main url="/home">
             <Pages>

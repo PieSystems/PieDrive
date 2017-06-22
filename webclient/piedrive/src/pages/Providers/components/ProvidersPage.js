@@ -19,16 +19,22 @@ import {
     Popup
 } from 'framework7-react';
 
-import PieTable from '../components/PieTable';
-import ProviderList from '../components/providerList/components/ProviderList';
-import {ProviderListContainer} from '../components/providerList';
+import PieTable from '../../../components/PieTable';
+import ProviderList from '../../../components/providerList/components/ProviderList';
+import {ProviderListContainer} from '../../../components/providerList/index';
 
-import PieFile from './../model/PieFile';
+import PieFile from '../../../model/PieFile';
 
-import {store} from '../App';
+import {store} from '../../../App';
 
 
 class providersPage extends Component {
+
+    constructor(props) {
+        super(props);
+        console.log(window.location.search.substr(1));
+    }
+
     render() {
         return (
             <Page name="providersPage">

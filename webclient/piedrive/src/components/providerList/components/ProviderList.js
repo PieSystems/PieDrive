@@ -47,13 +47,17 @@ export default class ProviderList extends Component {
         // });
     };
 
+    onGoogle = (event) => {
+        this.props.onProviderAdd("google");
+    };
+
     render() {
         return (
             <List sortable>
                 <ListGroup>
-                    <ListItem title='Dropbox' onClick={this.onDropbox} link="/"
+                    <ListItem title='Dropbox' onClick={this.onDropbox} link="#"
                               media='<i class="fa fa-2x fa-dropbox" aria-hidden="true"></i>'></ListItem>
-                    <ListItem title="Google Drive" link="#"
+                    <ListItem title="Google Drive" onClick={this.onGoogle} link="#"
                               media='<i class="fa fa-2x fa-google" aria-hidden="true"></i>'></ListItem>
                 </ListGroup>
             </List>

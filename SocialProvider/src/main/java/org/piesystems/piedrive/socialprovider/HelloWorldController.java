@@ -11,6 +11,8 @@ import com.dropbox.core.v2.files.ListFolderResult;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.drive.DriveFilesPage;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +36,13 @@ public class HelloWorldController {
 	public ListFolderResult listDropBoxFiles() throws DbxException {
 		DbxClientV2 client = connectionRepository.getPrimaryConnection(DbxClientV2.class).getApi();
 		ListFolderResult res = client.files().listFolder("");
+		return res;
+	}
+	
+	@RequestMapping("/list2")
+	public DriveFilesPage listGoogleFiles() throws DbxException {
+		Google client = connectionRepository.getPrimaryConnection(Google.class).getApi();
+		DriveFilesPage res = client.driveOperations().getFiles("root", null);
 		return res;
 	}
 }

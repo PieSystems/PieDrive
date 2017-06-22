@@ -19,6 +19,7 @@ import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.SessionUserIdSource;
 import org.springframework.social.dropbox.connect.DropboxConnectionFactory;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
 
 /**
  *
@@ -42,6 +43,14 @@ public class SocialConfiguration implements SocialConfigurer {
 				e.getProperty("spring.social.dropbox.appId"),
 				e.getProperty("spring.social.dropbox.appSecret"),
 				"pieDrive/0.1"));
+		
+		GoogleConnectionFactory google = new GoogleConnectionFactory(
+				e.getProperty("spring.social.google.appId"),
+				e.getProperty("spring.social.google.appSecret"));
+		
+		google.setScope("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive");
+		
+		cfc.addConnectionFactory(google);
 	}
 	
 	@Bean

@@ -28,14 +28,6 @@ import org.springframework.social.google.connect.GoogleConnectionFactory;
 @Configuration
 @EnableSocial
 public class SocialConfiguration implements SocialConfigurer {
-//	@Bean
-//    public ConnectionFactoryLocator connectionFactoryLocator() {
-//        ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
-//        registry.addConnectionFactory(new GoogleConnectionFactory(
-//            environment.getProperty("google.consumerKey"),
-//            environment.getProperty("google.consumerSecret")));
-//        return registry;
-//    }
 
 	@Override
 	public void addConnectionFactories(ConnectionFactoryConfigurer cfc, Environment e) {
@@ -76,16 +68,6 @@ public class SocialConfiguration implements SocialConfigurer {
 		SocialController cc = new SocialController(connectionFactoryLocator, 
 				connectionRepository, securityUserIdSource());
 		cc.setApplicationUrl(env.getProperty("spring.social.app.url"));
-		//cc.addInterceptor(new GoogleScopeInterceptor());
 		return cc;
 	}
-
-//	@Bean
-//	public TemplateResolver templateResolver() {
-//		TemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-//		templateResolver.setPrefix("views/");
-//		templateResolver.setSuffix(".html");
-//		templateResolver.setTemplateMode("HTML5");
-//		return templateResolver;
-//	}
 }

@@ -5,12 +5,9 @@
  */
 package org.piesystems.piedrive.socialprovider;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,13 +30,12 @@ public class SocialController extends ConnectController {
 	}
 
 	@Override
-	public RedirectView connect(@PathVariable String providerId, NativeWebRequest request) {
-		RedirectView redirect = super.connect(providerId, request);
-		//todo-sv: this is a workaround the be able to map the user for whom
-		//the provider is redirecting
-		this.securityUserIdSource.setSessionUser();
-		return redirect;
+	@RequestMapping(value="/2/{providerId}", method=RequestMethod.GET, params="code")
+	public RedirectView oauth2Callback(@PathVariable String providerId, NativeWebRequest request) {
+		return super.oauth2Callback(providerId, request); //To change body of generated methods, choose Tools | Templates.
 	}
+	
+	
 
 	@Override
 	protected RedirectView connectionStatusRedirect(String providerId, NativeWebRequest request) {
